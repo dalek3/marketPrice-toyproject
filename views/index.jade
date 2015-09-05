@@ -1,28 +1,5 @@
 extends layout
 
 block content
-	body.sidebar-mini.skin-purple-light
-		.wrapper
-
-			include header
-
-			include sidebar
-
-			// Content Wrapper. Contains page content
-			.content-wrapper
-				// Content Header (Page header)
-				section.content-header
-
-				// Main content
-				section.content
-					// Your Page Content Here
-
-			//Control Sidebar
-			aside.control-sidebar.control-sidebar-light
-				//Tab panes
-				.tab-content
-					//Home tab content
-					.tab-pane.active#control-sidebar-home-tab
-						h3.control-sidebar-heading
-							| Recent Activity
-			.control-sidebar-bg
+  h1= title
+  p Welcome to #{title}
