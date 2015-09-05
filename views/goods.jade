@@ -16,6 +16,27 @@ block content
 				// Main content
 				section.content
 					// Your Page Content Here
+					.box.box-default
+						.box-body
+							ul.products-list.product-list-in-box
+								li.item
+									.product-img
+										img(alt="Image" src="dist/img/user1-128x128.jpg")
+									.product-info
+										ul
+											li
+												#goodId
+											li
+												#goodName
+											li
+												//판매위치
+												| 판매처 : #{itemlocation}
+											li
+												//기준일
+												| 기준일 : #{itemdate}
+						.box-footer.text-center
+							a(href="javascript::;")
+								| 상세히 보기
 
 			//Control Sidebar
 			aside.control-sidebar.control-sidebar-light
@@ -26,3 +47,4 @@ block content
 						h3.control-sidebar-heading
 							| Recent Activity
 			.control-sidebar-bg
+		script(src="javascripts/readxml.js")

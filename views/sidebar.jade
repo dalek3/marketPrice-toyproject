@@ -1,0 +1,26 @@
+// Left side column. contains the logo and sidebar
+aside.main-sidebar
+	// sidebar: style can be found in sidebar.less
+	section.sidebar
+		// Sidebar Menu
+		ul.sidebar-menu
+			li.header
+			// Optionally, you can add icons to the links
+			li.treeview
+				a(href='#')
+					i.fa.fa-link
+					span 카테고리
+					i.fa.fa-angle-left.pull-right
+				ul.treeview-menu
+					li
+						a(href='/goods/#{item}') 식품/육류
+					li
+						a(href='/goods/#{item}') 공산품
+			li
+				a(href='#')
+					i.fa.fa-home
+					span 점포 찾기
+			li
+				a(href='#')
+					i.fa.fa-gear
+					span 설정
