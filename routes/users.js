@@ -61,13 +61,8 @@ router.get('/goods/etc', function(req, res, next) {
 });
 
 /* GET map */
-router.get('/map', function(req, res, next) {
-  res.render('map');
-});
-
-/* GET food */
-router.get('/setting', function(req, res, next) {
-  res.render('setting');
+router.get('/market', function(req, res, next) {
+  res.render('market');
 });
 
 module.exports = router;
