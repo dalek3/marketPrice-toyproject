@@ -37,9 +37,37 @@ router.get('/getdata1', function (req, res){
 		res.send('url error');
 	}
 });
-/* GET home page. */
+/* GET goods 전제 */
 router.get('/goods', function(req, res, next) {
   res.render('goods');
+});
+
+/* GET detail */
+
+
+/* GET food */
+router.get('/goods/food', function(req, res, next) {
+  res.render('goods');
+});
+
+/* GET mfood */
+router.get('/goods/mfood', function(req, res, next) {
+  res.render('goods');
+});
+
+/* GET etc */
+router.get('/goods/etc', function(req, res, next) {
+  res.render('goods');
+});
+
+/* GET map */
+router.get('/map', function(req, res, next) {
+  res.render('map');
+});
+
+/* GET food */
+router.get('/setting', function(req, res, next) {
+  res.render('setting');
 });
 
 module.exports = router;
