@@ -22,8 +22,8 @@ router.get('/getdata', function (req, res){
 });
 
 /* GET */
-router.get('/getdata', function (req, res){
-	var url = 'http://openapi.price.go.kr/openApiImpl/ProductPriceInfoService/getProductPriceInfoSvc.do?goodInspectDay=20150904&entpId=27&goodId='+goodid+'&ServiceKey='+servicekey;
+router.get('/getdata1', function (req, res){
+	var url = 'http://openapi.price.go.kr/openApiImpl/ProductPriceInfoService/getProductInfoSvc.do?goodId='+goodid+'&ServiceKey='+servicekey;
 	if (url){
 		http.get(url, function (web){
 			web.on('data', function (buffer){

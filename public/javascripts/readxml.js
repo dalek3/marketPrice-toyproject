@@ -10,13 +10,13 @@ $(document).ready(function() {
 
            // successful request; do something with the data
 
-           $('#goodName').empty();
+           $('#goodPrice').empty();
 
            data = $.parseXML(data);
 
            $(data).find('result').each(function(i){
 
-           $('#goodName').append('현재 가격: '+ $(this).find('goodPrice').text()+'원');
+           $('#goodPrice').append('현재 가격: '+ $(this).find('goodPrice').text()+'원');
 
            });
 
@@ -41,13 +41,13 @@ $(document).ready(function() {
 
            // successful request; do something with the data
 
-           $('#goodId').empty();
+           $('#goodName').empty();
 
            data = $.parseXML(data);
 
            $(data).find('result').each(function(i){
 
-           $('#goodId').append( '이름 : '+ $(this).find('goodName').text());
+           $('#goodName').append( '이름 : '+ $(this).find('goodName').text());
 
            });
 
