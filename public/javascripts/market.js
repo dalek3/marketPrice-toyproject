@@ -14,12 +14,12 @@ $(document).ready(function() {
 				var roadAddrBasic= $(this).find('roadAddrBasic').text();
 				var roadAddrDetail= $(this).find('roadAddrDetail').text();
 
-				$('.content').append('<div class="box box-body"><ul class="products-list product-list-in-box"><li.item><div class="product-info"><ul><li>'
+				$('.content').append('<div class="box box-body"><ul class="products-list"><ul><li>'
 							+'<h4><b><a href = #>'+entpName+'</a></b></h4></li><li>'
 							+'전화번호 : '+entpTelno+'</li><li>'
 							+'우편번호 : '+postNo+'</li><li>'
 							+'주소 : '+plmkAddrBasic+' '+plmkAddrDetail+'</li><li>'
-							+'<a href = #>지도보기</a>'+'</li></ul></div></li></ul></div>')
+							+'<a href = #>지도보기</a>'+'</li></ul></ul></div>')
 			});
 		},
 		error:function(){
