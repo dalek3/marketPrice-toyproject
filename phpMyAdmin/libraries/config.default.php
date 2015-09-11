@@ -2921,7 +2921,7 @@ $cfg['TrustedProxies'] = array();
  * permissions seems wrong but in fact cannot be detected. In this case
  * a sysadmin would set the following to false.
  */
-$cfg['CheckConfigurationPermissions'] = true;
+$cfg['CheckConfigurationPermissions'] = false;
 
 /**
  * Limit for length of URL in links. When length would be above this limit, it
