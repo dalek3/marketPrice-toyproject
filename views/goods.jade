@@ -21,8 +21,13 @@ block content
 							ul.products-list.product-list-in-box
 								.product-info
 									ul
-										li #{item.goodName}
-										li #{item.goodPrice} 원
+										li
+											h4
+												b
+													a(href='#') #{item.goodName}
+										li 현재가격 : #{item.goodPrice} 원
+										li 업체명 : #{item.entpName}
+										li 상세정보 : #{item.detailMean}
 			//Control Sidebar
 			aside.control-sidebar.control-sidebar-light
 				//Tab panes

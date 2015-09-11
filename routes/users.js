@@ -16,7 +16,7 @@ connection.connect();
 
 /* GET goods 전제 */
 router.get('/goods', function(req, res, next) {
-  	connection.query('SELECT goodName,goodPrice,detailMean from goods a,price b WHERE a.goodId = b.goodId ', function(err, data, fields) {  		if (err) {
+  	connection.query('SELECT goodName,goodPrice,entpName,detailMean from goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId', function(err, data, fields) {  		if (err) {
 				console.log('error: ', err);
 				throw err;
 			}
