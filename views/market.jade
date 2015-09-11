@@ -16,7 +16,19 @@ block content
 				// Main content
 				section.content
 					// Your Page Content Here
-
+					each item in row
+						.box.box-body
+							ul.products-list
+								li
+									h4
+										b 
+											a(href='#') #{item.entpName}
+								li
+									전화번호 :  #{item.entpTelno}
+								li
+									우편번호 :  #{item.postNo}
+								li
+									주소 :  #{item.plmkAddrBasic}
 			//Control Sidebar
 			aside.control-sidebar.control-sidebar-light
 				//Tab panes
@@ -26,4 +38,3 @@ block content
 						h3.control-sidebar-heading
 							| Recent Activity
 			.control-sidebar-bg
-		script(src="javascripts/market.js")

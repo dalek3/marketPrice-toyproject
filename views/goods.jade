@@ -16,6 +16,14 @@ block content
 				// Main content
 				section.content
 					// Your Page Content Here
+					$('.content').append('<div class="box box-body"><ul class="products-list product-list-in-box"><div class="product-info"><ul><li id=goodName></li><li>'
+							+goodPrice+'원</li></ul></div></ul></div>')
+
+						$(data).find('item').each(function(){
+				var goodName = $(this).find('goodName').text();
+				$('.content').append('<div class="box box-body"><ul class="products-list product-list-in-box"><div class="product-info"><ul><li>'
+							+'이름 : '+ goodName+'</li></ul></div></ul></div>')
+			});
 			//Control Sidebar
 			aside.control-sidebar.control-sidebar-light
 				//Tab panes
@@ -25,4 +33,4 @@ block content
 						h3.control-sidebar-heading
 							| Recent Activity
 			.control-sidebar-bg
-		script(src="javascripts/readxml.js")
+		script(src="javascripts/goods.js")
