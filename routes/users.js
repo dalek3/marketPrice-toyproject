@@ -1,6 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var http=require('http');
+var mysql = require('mysql');
+//데이터베이스와 연결합니다.
+var connection = mysql.createConnection({
+	host:'us-cdbr-iron-east-02.cleardb.net',
+	user: 'b2f741162c7959',
+	password: '14e1591c',
+	database: 'heroku_acd28e380746cfd'
+});
+
 
 var servicekey = 'YWj8qq5V0WpoccMC8GOXs%2BCxVePxpCqq%2FftHFru%2Fum0NN6I7oHUbxIIPHW%2FSRPm1%2FUEJ6JM7xTeuPBU0zEldYQ%3D%3D';
 /* GET */
