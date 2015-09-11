@@ -16,25 +16,31 @@ connection.connect();
 
 /* GET goods 전제 */
 router.get('/goods', function(req, res, next) {
-  res.render('goods');
+  	connection.query('SELECT goodName,goodPrice from goods a,price b WHERE a.goodId = b.goodId ', function(err, data, fields) {  		if (err) {
+				console.log('error: ', err);
+				throw err;
+			}
+		res.render('goods', {row: data});
+	});
 });
 
 /* GET detail */
 
-/* GET food */
+// GET food
+/*
 router.get('/goods/food', function(req, res, next) {
   res.render('goods');
 });
 
-/* GET mfood */
+//GET mfood
 router.get('/goods/mfood', function(req, res, next) {
   res.render('goods');
 });
 
-/* GET etc */
+///GET etc 
 router.get('/goods/etc', function(req, res, next) {
   res.render('goods');
-});
+});*/
 
 /* GET market */
 router.get('/market', function(req, res, next) {
