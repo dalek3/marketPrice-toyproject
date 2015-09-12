@@ -37,10 +37,9 @@ function handleDisconnect() {
 
 handleDisconnect();
 
-
 /* GET goods 전제 */
 router.get('/goods', function(req, res, next) {
-	connection.query('SELECT goodName,goodPrice,entpName,detailMean from goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId'
+	connection.query('SELECT goodName,goodPrice,entpName,detailMean FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId'
 			, function(err, data, fields) { 
 				if (err) {
 				console.log('error: ', err);
