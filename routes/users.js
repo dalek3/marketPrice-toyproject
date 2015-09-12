@@ -37,6 +37,19 @@ function handleDisconnect() {
 
 handleDisconnect();
 
+/* GET home page. */
+router.get('/', function(req, res, next) {
+	connection.query('SELECT goodName,goodPrice,entpName,detailMean FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId'
+			, function(err, data, fields) { 
+				if (err) {
+				console.log('error: ', err);
+				throw err;
+			}
+		//res.send(data);
+		res.render('', {title: '뭐살까', row: data});
+	});
+});
+
 /* GET goods 전제 */
 router.get('/goods', function(req, res, next) {
 	connection.query('SELECT goodName,goodPrice,entpName,detailMean FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId'
@@ -46,7 +59,7 @@ router.get('/goods', function(req, res, next) {
 				throw err;
 			}
 		//res.send(data);
-		res.render('goods', {row: data});
+		res.render('goods', {title: '뭐살까',row: data});
 	});
 });
 
@@ -60,7 +73,7 @@ router.get('/food', function(req, res, next) {
 				console.log('error: ', err);
 				throw err;
 			}
-	res.render('goods', {row: data});
+	res.render('goods', {title: '뭐살까',row: data});
 	});
 });
 
@@ -72,7 +85,7 @@ router.get('/mfood', function(req, res, next) {
 				console.log('error: ', err);
 				throw err;
 			}
-	res.render('goods', {row: data});
+	res.render('goods', {title: '뭐살까',row: data});
 	});
 });
 
@@ -84,7 +97,7 @@ router.get('/etc', function(req, res, next) {
 				console.log('error: ', err);
 				throw err;
 			}
-	res.render('goods', {row: data});
+	res.render('goods', {title: '뭐살까',row: data});
 	});
 });
 
@@ -95,7 +108,7 @@ router.get('/market', function(req, res, next) {
 			console.log('error: ', err);
 			throw err;
 		}
-			res.render('market', {row: rows});
+			res.render('market', {title: '뭐살까',row: rows});
 	})
 });
 
