@@ -3,7 +3,6 @@ var router = express.Router();
 var http=require('http');
 var mysql = require('mysql');
 
-
 //데이터베이스와 연결합니다.
 var db_config = {
 	host:'us-cdbr-iron-east-02.cleardb.net',
@@ -39,7 +38,7 @@ handleDisconnect();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	connection.query('SELECT goodName,goodPrice,entpName,detailMean FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId'
+	connection.query('SELECT * FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId'
 			, function(err, data, fields) { 
 				if (err) {
 				console.log('error: ', err);
@@ -49,11 +48,11 @@ router.get('/', function(req, res, next) {
 		res.render('', {title: '뭐살까', row: data});
 	});
 });
+
 /*검색기능*/
 router.get('/search', function(req, res, next) {
 	var q= req.query.search;
-	connection.query('SELECT * FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND goodName = ?'
-	,[req.query.q]
+	connection.query('SELECT * FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND goodName LIKE "%'+req.query.q+'%"'
 	,function(err, data, fields) { 
 		if (err) {
 			console.log('error: ', err);
@@ -64,9 +63,10 @@ router.get('/search', function(req, res, next) {
 		res.render('search', {title: '뭐살까',row: data});
 	});
 });
+
 /* GET goods 전제 */
 router.get('/goods', function(req, res, next) {
-	connection.query('SELECT goodName,goodPrice,entpName,detailMean FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId'
+	connection.query('SELECT * FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId'
 			, function(err, data, fields) { 
 				if (err) {
 				console.log('error: ', err);
@@ -78,10 +78,23 @@ router.get('/goods', function(req, res, next) {
 });
 
 /* GET detail */
+router.get('/goods?goodId=:id', function(req, res, next) {
+	connection.query('SELECT * FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND goodId=?'
+			,[req.param.goodId]
+			,function(err, data, fields) { 
+				if (err) {
+				console.log('error: ', err);
+				throw err;
+			}
+		req.session.goodId = req.params.goodId,
+		//res.send(data);
+		res.render('detail', {title: '뭐살까',row: data});
+	});
+});
 
 // GET food
-router.get('/food', function(req, res, next) {
-	connection.query('SELECT goodName,goodPrice,entpName,detailMean,goodSmlclsCode FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND a.goodSmlclsCode >=030100000 AND a.goodSmlclsCode < 030200000'
+router.get('/goods?goodSmlclsCode=:goodSmlclsCode', function(req, res, next) {
+	connection.query('SELECT * FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND a.goodSmlclsCode >=030100000 AND a.goodSmlclsCode < 030200000'
 			, function(err, data, fields) { 
 				if (err) {
 				console.log('error: ', err);
@@ -92,8 +105,8 @@ router.get('/food', function(req, res, next) {
 });
 
 //GET mfood
-router.get('/mfood', function(req, res, next) {
-	connection.query('SELECT goodName,goodPrice,entpName,detailMean,goodSmlclsCode FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND a.goodSmlclsCode >=030200000 AND a.goodSmlclsCode < 030300000'
+router.get('/goods?goodSmlclsCode=:goodSmlclsCode', function(req, res, next) {
+	connection.query('SELECT * FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND a.goodSmlclsCode >=030200000 AND a.goodSmlclsCode < 030300000'
 			, function(err, data, fields) { 
 				if (err) {
 				console.log('error: ', err);
@@ -104,8 +117,8 @@ router.get('/mfood', function(req, res, next) {
 });
 
 //GET etc 
-router.get('/etc', function(req, res, next) {
-	connection.query('SELECT goodName,goodPrice,entpName,detailMean,goodSmlclsCode FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND a.goodSmlclsCode >=030300000'
+router.get('/goods?goodSmlclsCode=:goodSmlclsCode', function(req, res, next) {
+	connection.query('SELECT * FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND a.goodSmlclsCode >=030300000'
 			, function(err, data, fields) { 
 				if (err) {
 				console.log('error: ', err);
