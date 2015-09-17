@@ -49,7 +49,21 @@ router.get('/', function(req, res, next) {
 		res.render('', {title: '뭐살까', row: data});
 	});
 });
-
+/*검색기능*/
+router.get('/search', function(req, res, next) {
+	var q= req.query.search;
+	connection.query('SELECT * FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND goodName = ?'
+	,[req.query.q]
+	,function(err, data, fields) { 
+		if (err) {
+			console.log('error: ', err);
+			throw err;
+		}
+		//res.send(data);
+		console.log(q); 
+		res.render('search', {title: '뭐살까',row: data});
+	});
+});
 /* GET goods 전제 */
 router.get('/goods', function(req, res, next) {
 	connection.query('SELECT goodName,goodPrice,entpName,detailMean FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId'
