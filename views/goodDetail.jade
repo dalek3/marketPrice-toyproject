@@ -29,8 +29,8 @@ block content
 											li 업체명 : #{item.entpName}
 											li 상세정보
 											| #{item.detailMean}
-							.box-footer(style="padding-left:50px;")
-									canvas#myChart(width="400" height="200")
+							.box-footer
+									canvas.col-xs-offset-1.col-md-9.col-md-offset-1#myChart(width="400" height="200")
 							script(type='text/javascript').
 								var data = {
 									labels: ["#{item.goodInspectDay}", "1", "2", "3"],
