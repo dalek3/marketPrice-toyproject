@@ -38,7 +38,7 @@ handleDisconnect();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	connection.query('SELECT * FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId'
+	connection.query('SELECT * FROM goods a,price0904 b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId'
 			, function(err, data, fields) { 
 				if (err) {
 				console.log('error: ', err);
@@ -51,7 +51,7 @@ router.get('/', function(req, res, next) {
 /*검색기능*/
 router.get('/search', function(req, res, next) {
 	var q= req.query.search;
-	connection.query('SELECT * FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND goodName LIKE "%'+req.query.q+'%"'
+	connection.query('SELECT * FROM goods a,price0904 b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND goodName LIKE "%'+req.query.q+'%"'
 	,function(err, data, fields) { 
 		if (err) {
 			console.log('error: ', err);
@@ -64,7 +64,7 @@ router.get('/search', function(req, res, next) {
 
 /* GET goods 전제 */
 router.get('/goods', function(req, res, next) {
-	connection.query('SELECT * FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId'
+	connection.query('SELECT * FROM goods a,price0904 b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId'
 			, function(err, data, fields) { 
 				if (err) {
 				console.log('error: ', err);
@@ -76,20 +76,21 @@ router.get('/goods', function(req, res, next) {
 
 /* GET goods detail */
 router.get('/goodsView', function(req, res, next) {
-	connection.query('SELECT * FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND a.goodId=? AND b.entpId=?' 
+	connection.query('SELECT * FROM goods a,price0904 b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND a.goodId=? AND b.entpId=?' 
 			,[req.query.goodId, req.query.entpId]
 			,function(err, data, fields) { 
 				if (err) {
 				console.log('error: ', err);
 				throw err;
 			}
+		console.log(data[0]);
 		res.render('goodDetail', {title: '뭐살까',row: data});
 	});
 });
 
 // GET food
 router.get('/food', function(req, res, next) {
-	connection.query('SELECT * FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND a.goodSmlclsCode >=030100000 AND a.goodSmlclsCode < 030200000'
+	connection.query('SELECT * FROM goods a,price0904 b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND a.goodSmlclsCode >=030100000 AND a.goodSmlclsCode < 030200000'
 			, function(err, data, fields) { 
 				if (err) {
 				console.log('error: ', err);
@@ -101,7 +102,7 @@ router.get('/food', function(req, res, next) {
 
 //GET mfood
 router.get('/mfood', function(req, res, next) {
-	connection.query('SELECT * FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND a.goodSmlclsCode >=030200000 AND a.goodSmlclsCode < 030300000'
+	connection.query('SELECT * FROM goods a,price0904 b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND a.goodSmlclsCode >=030200000 AND a.goodSmlclsCode < 030300000'
 			, function(err, data, fields) { 
 				if (err) {
 				console.log('error: ', err);
@@ -113,7 +114,7 @@ router.get('/mfood', function(req, res, next) {
 
 //GET etc 
 router.get('/etc', function(req, res, next) {
-	connection.query('SELECT * FROM goods a,price b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND a.goodSmlclsCode >=030300000'
+	connection.query('SELECT * FROM goods a,price0904 b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND a.goodSmlclsCode >=030300000'
 			, function(err, data, fields) { 
 				if (err) {
 				console.log('error: ', err);
