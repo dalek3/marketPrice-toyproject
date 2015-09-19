@@ -83,7 +83,7 @@ router.get('/goodsView', function(req, res, next) {
 				console.log('error: ', err);
 				throw err;
 			}
-			res.render('goodDetail', {title: '뭐살까',row: data});
+		res.render('goodDetail', {title: '뭐살까',row: data});
 	});
 });
 
