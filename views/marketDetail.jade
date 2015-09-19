@@ -10,19 +10,43 @@ block content
 
 			// Content Wrapper. Contains page content
 			.content-wrapper
-				// Content Header (Page header)
-
-				section.content-header
 				// Main content
 				section.content
 					// Your Page Content Here
 					each item in row
-						.box.box-body
-							ul.products-list
-								li
-									h4
-										b 
-											a(href='#') #{item.entpName}
-								li 전화번호 :  #{item.entpTelno}
-								li 우편번호 :  #{item.postNo}
-								li 주소 :  #{item.plmkAddrBasic}
+						.box(style="padding-left:20px;")
+							.box-header
+								h3
+									b
+										매장정보
+							.box-body
+								ul.products-list
+									li
+										h4
+											b 
+												a(href='#') #{item.entpName}
+									li 전화번호 :  #{item.entpTelno}
+									li 우편번호 :  #{item.postNo}
+									li 주소 :  #{item.plmkAddrBasic}
+									li 휴무일 : 
+							.box-footer
+									script(type='text/javascript').
+										var map;
+										var myLatLng = {lat: #{item.xMapCoord}, lng: #{item.yMapCoord}};
+
+										function initMap() {
+											map = new google.maps.Map(document.getElementById('map'), {
+												center: myLatLng,
+												zoom: 16,
+												mapTypeId: google.maps.MapTypeId.ROADMAP
+											});
+											var marker = new google.maps.Marker({
+												position: myLatLng,
+												map: map,
+												title: 'Hello World!'
+											});
+										}
+									#map(style="width:600px;height:350px;")
+							//이미지 지도를 표시할 div 입니다
+	script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAaQdS5hnykoN56TtCsaSqSqjyke3knAKo&callback=initMap')
+	

@@ -44,7 +44,6 @@ router.get('/', function(req, res, next) {
 				console.log('error: ', err);
 				throw err;
 			}
-		//res.send(data);
 		res.render('', {title: '뭐살까', row: data});
 	});
 });
@@ -58,7 +57,6 @@ router.get('/search', function(req, res, next) {
 			console.log('error: ', err);
 			throw err;
 		}
-		//res.send(data);
 		console.log(q); 
 		res.render('search', {title: '뭐살까',row: data});
 	});
@@ -72,7 +70,6 @@ router.get('/goods', function(req, res, next) {
 				console.log('error: ', err);
 				throw err;
 			}
-		//res.send(data);
 		res.render('goods', {title: '뭐살까',row: data});
 	});
 });
@@ -86,8 +83,7 @@ router.get('/goodsView', function(req, res, next) {
 				console.log('error: ', err);
 				throw err;
 			}
-		
-		res.render('goodDetail', {title: '뭐살까',row: data});
+			res.render('goodDetail', {title: '뭐살까',row: data});
 	});
 });
 

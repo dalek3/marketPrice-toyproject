@@ -10,6 +10,19 @@ block content
 
 			// Content Wrapper. Contains page content
 			.content-wrapper
-				// Content Header (Page header)
-				section.content-header
-					include goodsContent
+				// Main content
+				section.content
+					// Your Page Content Here
+					each item in row
+						.box
+							.box-body
+								ul.products-list.product-list-in-box
+									.product-info
+										ul
+											li
+												h4
+													b
+														a(href='/goodsView?goodId=#{item.goodId}&entpId=#{item.entpId}') #{item.goodName}
+											li 현재가격 : #{item.goodPrice} 원 / #{item.goodTotalCnt}
+											li 한달전가격 :  
+											li 업체명 : #{item.entpName}

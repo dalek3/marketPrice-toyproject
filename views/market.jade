@@ -10,28 +10,17 @@ block content
 
 			// Content Wrapper. Contains page content
 			.content-wrapper
-				// Content Header (Page header)
-				section.content-header
-
 				// Main content
 				section.content
 					// Your Page Content Here
 					each item in row
-						.box.box-body
-							ul.products-list
-								li
-									h4
-										b 
-											a(href='/marketView?entpId=#{item.entpId}') #{item.entpName}
-								li 전화번호 :  #{item.entpTelno}
-								li 우편번호 :  #{item.postNo}
-								li 주소 :  #{item.plmkAddrBasic}
-			//Control Sidebar
-			aside.control-sidebar.control-sidebar-light
-				//Tab panes
-				.tab-content
-					//Home tab content
-					.tab-pane.active#control-sidebar-home-tab
-						h3.control-sidebar-heading
-							| 장바구니 내역
-			.control-sidebar-bg
+						.box(style="padding-left:20px;")
+							.box-body
+								ul.products-list
+									li
+										h4
+											b 
+												a(href='/marketView?entpId=#{item.entpId}') #{item.entpName}
+									li 전화번호 :  #{item.entpTelno}
+									li 우편번호 :  #{item.postNo}
+									li 주소 :  #{item.plmkAddrBasic}
