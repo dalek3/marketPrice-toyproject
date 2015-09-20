@@ -37,57 +37,45 @@ handleDisconnect();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	connection.query('SELECT * FROM goods, store'
+	connection.query('SELECT * FROM goods a, store b,newprice c WHERE a.goodId=c.goodId AND b.entpId=c.entpId'
 		, function(err, data, fields) { 
 			if (err) {
 				console.log('error: ', err);
 				throw err;
 			}
-			connection.query('SELECT * FROM price WHERE goodId=? AND entpId=?' 
-				,[req.query.goodId, req.query.entpId]
-				,function(err, prices, fields) { 
-					res.render('', {title: '뭐살까',row: data, price: prices});
-				});
+			res.render('', {title: '뭐살까',row: data});
 		});
 });
 
 /*검색기능*/
 router.get('/search', function(req, res, next) {
 	var q= req.query.search;
-	connection.query('SELECT * FROM goods, store WHERE goodName LIKE "%'+req.query.q+'%"'
+	connection.query('SELECT * FROM goods a, store b, newprice c WHERE a.goodId=c.goodId AND b.entpId=c.entpId AND goodName LIKE "%'+req.query.q+'%"'
 		,function(err, data, fields) { 
 			if (err) {
 				console.log('error: ', err);
 				throw err;
-			}
-			connection.query('SELECT * FROM price WHERE goodId=? AND entpId=?' 
-				,[req.query.goodId, req.query.entpId]
-				,function(err, prices, fields) { 
-					console.log(q); 
-					res.render('search', {title: '뭐살까',row: data, price: prices});
-				});
+			} 
+			console.log(q); 
+			res.render('search', {title: '뭐살까',row: data});
 		});
 });
 
 /* GET goods 전제 */
 router.get('/goods', function(req, res, next) {
-	connection.query('SELECT * FROM goods, store'
+	connection.query('SELECT * FROM goods a, store b,newprice c WHERE a.goodId=c.goodId AND b.entpId=c.entpId'
 		, function(err, data, fields) { 
 			if (err) {
 				console.log('error: ', err);
 				throw err;
 			}
-			connection.query('SELECT * FROM price WHERE goodId=? AND entpId=?' 
-				,[req.query.goodId, req.query.entpId]
-				,function(err, prices, fields) { 
-					res.render('goods', {title: '뭐살까',row: data, price: prices});
-				});
+			res.render('goods', {title: '뭐살까',row: data});
 		});
 });
 
 /* GET goods detail */
 router.get('/goodsView', function(req, res, next) {
-	connection.query('SELECT * FROM goods, store WHERE a.goodId=? AND c.entpId=?' 
+	connection.query('SELECT * FROM goods, store WHERE goodId=? AND entpId=?' 
 		,[req.query.goodId, req.query.entpId]
 		,function(err, data, fields) { 
 			if (err) {
@@ -104,49 +92,37 @@ router.get('/goodsView', function(req, res, next) {
 
 // GET food
 router.get('/food', function(req, res, next) {
-	connection.query('SELECT * FROM goods, store WHERE goodSmlclsCode >=030100000 AND goodSmlclsCode < 030200000'
+	connection.query('SELECT * FROM goods a, store b,newprice c WHERE a.goodId=c.goodId AND b.entpId=c.entpId AND goodSmlclsCode >=030100000 AND goodSmlclsCode < 030200000'
 		, function(err, data, fields) { 
 			if (err) {
 				console.log('error: ', err);
 				throw err;
-			}
-			connection.query('SELECT * FROM price WHERE goodId=? AND entpId=?' 
-				,[req.query.goodId, req.query.entpId]
-				,function(err, prices, fields) { 
-					res.render('goods', {title: '뭐살까',row: data, price: prices});
-				});
+			} 
+			res.render('goods', {title: '뭐살까',row: data});
 		});
 });
 
 //GET mfood
 router.get('/mfood', function(req, res, next) {
-	connection.query('SELECT * FROM goods, store WHERE goodSmlclsCode >=030200000 AND goodSmlclsCode < 030300000'
+	connection.query('SELECT * FROM goods a, store b,newprice c WHERE a.goodId=c.goodId AND b.entpId=c.entpId AND goodSmlclsCode >=030200000 AND goodSmlclsCode < 030300000'
 		, function(err, data, fields) { 
 			if (err) {
 				console.log('error: ', err);
 				throw err;
 			}
-			connection.query('SELECT * FROM price WHERE goodId=? AND entpId=?' 
-				,[req.query.goodId, req.query.entpId]
-				,function(err, prices, fields) { 
-					res.render('goods', {title: '뭐살까',row: data, price: prices});
-				});
+			res.render('goods', {title: '뭐살까',row: data});
 		});
 });
 
 //GET etc 
 router.get('/etc', function(req, res, next) {
-	connection.query('SELECT * FROM goods, store WHERE goodSmlclsCode >=030300000'
+	connection.query('SELECT * FROM goods a, store b,newprice c WHERE a.goodId=c.goodId AND b.entpId=c.entpId AND goodSmlclsCode >=030300000'
 		, function(err, data, fields) { 
 			if (err) {
 				console.log('error: ', err);
 				throw err;
 			}
-			connection.query('SELECT * FROM price WHERE goodId=? AND entpId=?' 
-				,[req.query.goodId, req.query.entpId]
-				,function(err, prices, fields) { 
-					res.render('goods', {title: '뭐살까',row: data, price: prices});
-				});
+			res.render('goods', {title: '뭐살까',row: data});
 		});
 });
 
