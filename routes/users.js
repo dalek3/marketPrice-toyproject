@@ -37,14 +37,7 @@ handleDisconnect();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	connection.query('SELECT * FROM goods a, store b,newprice c, standard d WHERE a.goodId=c.goodId AND b.entpId=c.entpId AND a.goodTotalDivCode=d.code'
-		, function(err, data, fields) { 
-			if (err) {
-				console.log('error: ', err);
-				throw err;
-			}
-			res.render('', {title: '뭐살까',row: data});
-		});
+	res.render('index', {title: '뭐살까'});
 });
 
 /*검색기능*/
