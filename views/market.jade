@@ -15,13 +15,24 @@ block content
 					// Your Page Content Here
 					each item in row
 						.box(style="padding-left:20px;")
+							.box-header
+								h4.box-title
+									b 
+										a(href='/marketView?entpId=#{item.entpId}') #{item.entpName}
+								.box-tools.pull-right
+									button(type="button" class="btn btn-box-tool" data-widget="collapse")
+										i.fa.fa-minus
+									button(type="button" class="btn btn-box-tool" data-widget="remove")
+										i.fa.fa-times
 							.box-body
 								ul.products-list
 									li
-										h4
-											b 
-												a(href='/marketView?entpId=#{item.entpId}') #{item.entpName}
-									li 전화번호 :  #{item.entpTelno}
-									li 우편번호 :  #{item.postNo}
-									li 주소 :  #{item.plmkAddrBasic}
+										b 전화번호 : 
+										| #{item.entpTelno}
+									li
+										b 우편번호 : 
+										| #{item.postNo}
+									li
+										b 주소 : 
+										| #{item.plmkAddrBasic}
 		include scripts

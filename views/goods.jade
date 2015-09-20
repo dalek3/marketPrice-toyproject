@@ -15,14 +15,24 @@ block content
 					// Your Page Content Here
 					each item in row
 						.box
+							.box-header
+								h4.box-title
+									b 
+										a(href='/goodsView?goodId=#{item.goodId}&entpId=#{item.entpId}') #{item.goodName}
+								.box-tools.pull-right
+									button(type="button" class="btn btn-box-tool" data-widget="collapse")
+										i.fa.fa-minus
+									button(type="button" class="btn btn-box-tool" data-widget="remove")
+										i.fa.fa-times
 							.box-body
-								ul.products-list.product-list-in-box
+								ul.products-list
+									.product-list-in-box
 									.product-info
 										ul
 											li
-												h4
-													b
-														a(href='/goodsView?goodId=#{item.goodId}&entpId=#{item.entpId}') #{item.goodName}
-											li 현재가격 :  #{item.goodPrice} 원 / #{item.goodTotalCnt} #{item.codeName}
-											li 업체명 : #{item.entpName}
+												b 현재가격
+											| #{item.goodPrice} 원 / #{item.goodTotalCnt} #{item.codeName}
+											li
+												b 업체명
+											| #{item.entpName}
 		include scripts
