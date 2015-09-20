@@ -15,22 +15,21 @@ var connection;
 
 function handleDisconnect() {
 	connection = mysql.createConnection(db_config); // Recreate the connection, since
-																									// the old one cannot be reused.
-
+	// the old one cannot be reused.
 	connection.connect(function(err) {              // The server is either down
 		if(err) {                                     // or restarting (takes a while sometimes).
 			console.log('error when connecting to db:', err);
 			setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
 		}                                     // to avoid a hot loop, and to allow our node script to
 	});                                     // process asynchronous requests in the meantime.
-																					// If you're also serving http, display a 503 error.
+	// If you're also serving http, display a 503 error.
 	connection.on('error', function(err) {
 		console.log('db error', err);
-		if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
-			handleDisconnect();                         // lost due to either server restart, or a
-		} else {                                      // connnection idle timeout (the wait_timeout
-			throw err;                                  // server variable configures this)
-		}
+			if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+				handleDisconnect();                         // lost due to either server restart, or a
+			} else {                                      // connnection idle timeout (the wait_timeout
+				throw err;                                  // server variable configures this)
+			}
 	});
 }
 
@@ -38,90 +37,117 @@ handleDisconnect();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	connection.query('SELECT * FROM goods a,price0904 b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId'
-			, function(err, data, fields) { 
-				if (err) {
+	connection.query('SELECT * FROM goods, store'
+		, function(err, data, fields) { 
+			if (err) {
 				console.log('error: ', err);
 				throw err;
 			}
-		res.render('', {title: '뭐살까', row: data});
-	});
+			connection.query('SELECT * FROM price WHERE goodId=? AND entpId=?' 
+				,[req.query.goodId, req.query.entpId]
+				,function(err, prices, fields) { 
+					res.render('', {title: '뭐살까',row: data, price: prices});
+				});
+		});
 });
 
 /*검색기능*/
 router.get('/search', function(req, res, next) {
 	var q= req.query.search;
-	connection.query('SELECT * FROM goods a,price0904 b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND goodName LIKE "%'+req.query.q+'%"'
-	,function(err, data, fields) { 
-		if (err) {
-			console.log('error: ', err);
-			throw err;
-		}
-		console.log(q); 
-		res.render('search', {title: '뭐살까',row: data});
-	});
+	connection.query('SELECT * FROM goods, store WHERE goodName LIKE "%'+req.query.q+'%"'
+		,function(err, data, fields) { 
+			if (err) {
+				console.log('error: ', err);
+				throw err;
+			}
+			connection.query('SELECT * FROM price WHERE goodId=? AND entpId=?' 
+				,[req.query.goodId, req.query.entpId]
+				,function(err, prices, fields) { 
+					console.log(q); 
+					res.render('search', {title: '뭐살까',row: data, price: prices});
+				});
+		});
 });
 
 /* GET goods 전제 */
 router.get('/goods', function(req, res, next) {
-	connection.query('SELECT * FROM goods a,price0904 b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId'
-			, function(err, data, fields) { 
-				if (err) {
+	connection.query('SELECT * FROM goods, store'
+		, function(err, data, fields) { 
+			if (err) {
 				console.log('error: ', err);
 				throw err;
 			}
-		res.render('goods', {title: '뭐살까',row: data});
-	});
+			connection.query('SELECT * FROM price WHERE goodId=? AND entpId=?' 
+				,[req.query.goodId, req.query.entpId]
+				,function(err, prices, fields) { 
+					res.render('goods', {title: '뭐살까',row: data, price: prices});
+				});
+		});
 });
 
 /* GET goods detail */
 router.get('/goodsView', function(req, res, next) {
-	connection.query('SELECT * FROM goods a,price0904 b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND a.goodId=? AND b.entpId=?' 
-			,[req.query.goodId, req.query.entpId]
-			,function(err, data, fields) { 
-				if (err) {
+	connection.query('SELECT * FROM goods, store WHERE a.goodId=? AND c.entpId=?' 
+		,[req.query.goodId, req.query.entpId]
+		,function(err, data, fields) { 
+			if (err) {
 				console.log('error: ', err);
 				throw err;
 			}
-		console.log(data[0]);
-		res.render('goodDetail', {title: '뭐살까',row: data});
-	});
+			connection.query('SELECT * FROM price WHERE goodId=? AND entpId=?' 
+				,[req.query.goodId, req.query.entpId]
+				,function(err, prices, fields) { 
+					res.render('goodDetail', {title: '뭐살까',row: data, price: prices});
+				});
+		});
 });
 
 // GET food
 router.get('/food', function(req, res, next) {
-	connection.query('SELECT * FROM goods a,price0904 b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND a.goodSmlclsCode >=030100000 AND a.goodSmlclsCode < 030200000'
-			, function(err, data, fields) { 
-				if (err) {
+	connection.query('SELECT * FROM goods, store WHERE goodSmlclsCode >=030100000 AND goodSmlclsCode < 030200000'
+		, function(err, data, fields) { 
+			if (err) {
 				console.log('error: ', err);
 				throw err;
 			}
-	res.render('goods', {title: '뭐살까',row: data});
-	});
+			connection.query('SELECT * FROM price WHERE goodId=? AND entpId=?' 
+				,[req.query.goodId, req.query.entpId]
+				,function(err, prices, fields) { 
+					res.render('goods', {title: '뭐살까',row: data, price: prices});
+				});
+		});
 });
 
 //GET mfood
 router.get('/mfood', function(req, res, next) {
-	connection.query('SELECT * FROM goods a,price0904 b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND a.goodSmlclsCode >=030200000 AND a.goodSmlclsCode < 030300000'
-			, function(err, data, fields) { 
-				if (err) {
+	connection.query('SELECT * FROM goods, store WHERE goodSmlclsCode >=030200000 AND goodSmlclsCode < 030300000'
+		, function(err, data, fields) { 
+			if (err) {
 				console.log('error: ', err);
 				throw err;
 			}
-	res.render('goods', {title: '뭐살까',row: data});
-	});
+			connection.query('SELECT * FROM price WHERE goodId=? AND entpId=?' 
+				,[req.query.goodId, req.query.entpId]
+				,function(err, prices, fields) { 
+					res.render('goods', {title: '뭐살까',row: data, price: prices});
+				});
+		});
 });
 
 //GET etc 
 router.get('/etc', function(req, res, next) {
-	connection.query('SELECT * FROM goods a,price0904 b,store c WHERE a.goodId = b.goodId AND b.entpId=c.entpId AND a.goodSmlclsCode >=030300000'
-			, function(err, data, fields) { 
-				if (err) {
+	connection.query('SELECT * FROM goods, store WHERE goodSmlclsCode >=030300000'
+		, function(err, data, fields) { 
+			if (err) {
 				console.log('error: ', err);
 				throw err;
 			}
-	res.render('goods', {title: '뭐살까',row: data});
-	});
+			connection.query('SELECT * FROM price WHERE goodId=? AND entpId=?' 
+				,[req.query.goodId, req.query.entpId]
+				,function(err, prices, fields) { 
+					res.render('goods', {title: '뭐살까',row: data, price: prices});
+				});
+		});
 });
 
 /* GET market */
@@ -131,7 +157,7 @@ router.get('/market', function(req, res, next) {
 			console.log('error: ', err);
 			throw err;
 		}
-			res.render('market', {title: '뭐살까',row: rows});
+		res.render('market', {title: '뭐살까',row: rows});
 	})
 });
 
@@ -140,12 +166,12 @@ router.get('/marketView', function(req, res, next) {
 	connection.query('SELECT * from store WHERE entpId=?'
 		,[req.query.entpId]
 		, function(err,  data, fields) {
-		if (err) {
-			console.log('error: ', err);
-			throw err;
-		}
-		res.render('marketDetail', {title: '뭐살까',row: data});
-	})
+			if (err) {
+				console.log('error: ', err);
+				throw err;
+			}
+			res.render('marketDetail', {title: '뭐살까',row: data});
+		})
 });
 
 
