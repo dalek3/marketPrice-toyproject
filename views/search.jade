@@ -26,6 +26,8 @@ block content
 										i.fa.fa-times
 							.box-body
 								ul.products-list.product-list-in-box
+									.product-img
+										img(src="#{item.img}" style = "border-radius : 50%;")
 									.product-info
 										ul
 											li
@@ -62,8 +64,8 @@ block content
 										html += '</div>'
 										html += '</div>'
 										html += '<div class="box-body">'
-										html += '<ul class ="products-list">'
-										html += '<div class="product-list-in-box"></div>'
+										html += '<ul class ="products-list product-list-in-box">'
+										html += '<div class="product-img"><img src="'+this.img+'" style = "border-radius : 50%;"></div>'
 										html += '<div class="product-info">'
 										html += '<ul>'
 										html += '<li>'

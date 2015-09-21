@@ -22,24 +22,25 @@ block content
 										a(href='/goodsView?goodId=#{item.goodId}&entpId=#{item.entpId}') #{item.goodName}
 							.box-body
 								ul.products-list.product-list-in-box
-									
-										.product-info
-											ul
-												li
-													b 현재가격
-												| !{price[3].goodPrice} 원 / #{item.goodTotalCnt} #{item.codeName}
-												li
-													b 한달전가격
-												| !{price[0].goodPrice} 원 / #{item.goodTotalCnt} #{item.codeName}
-												li
-													b 업체명 
-												| #{item.entpName}
-												li
-													b 기준일
-												| !{price[3].goodInspectDay}
-												li
-													b 상세정보
-												| #{item.detailMean}
+									.product-img
+										img(src="#{item.img}" style = "border-radius : 50%;")
+									.product-info
+										ul
+											li
+												b 현재가격
+											| !{price[3].goodPrice} 원 / #{item.goodTotalCnt} #{item.codeName}
+											li
+												b 한달전가격
+											| !{price[0].goodPrice} 원 / #{item.goodTotalCnt} #{item.codeName}
+											li
+												b 업체명 
+											| #{item.entpName}
+											li
+												b 기준일
+											| !{price[3].goodInspectDay}
+											li
+												b 상세정보
+											| #{item.detailMean}
 							.box-footer
 								canvas.col-xs-11.col-md-offset-1.col-md-5#myChart(height="150")
 									script(type='text/javascript').
