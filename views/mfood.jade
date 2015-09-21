@@ -25,7 +25,8 @@ block content
 									button(type="button" class="btn btn-box-tool" data-widget="remove")
 										i.fa.fa-times
 							.box-body
-								ul.products-list.product-list-in-box
+								ul.products-list
+									.product-list-in-box
 									.product-info
 										ul
 											li
@@ -43,7 +44,7 @@ block content
 					if(scrollHeight == documentHeight){
 						$.ajax({
 							type: "GET",
-							url: "/api/search",
+							url: "/api/mfood",
 							dataType: "json",
 							success: function(data){
 								$.each(data, function () {

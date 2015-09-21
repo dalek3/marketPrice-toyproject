@@ -36,3 +36,50 @@ block content
 												b 업체명
 											| #{item.entpName}
 		include scripts
+		script(type='text/javascript').
+			$(document).ready(function(){
+				$(window).scroll(function(){
+					var scrollHeight = $(window).scrollTop() + $(window).height();
+					var documentHeight = $(document).height();  
+					if(scrollHeight == documentHeight){
+						$.ajax({
+							type: "GET",
+							url: "/api/goods",
+							dataType: "json",
+							success: function(data){
+								$.each(data, function () {
+									var html = '<div class="box">'
+										html += '<div class="box-header">'
+										html += '<h4>'
+										html += '<div class="box-title">'
+										html += '<b><a href="goodsView?goodId=' + this.goodId + '&entpId=' + this.entpId+'">' + this.goodName+'</b></a>'
+										html += '</div>'
+										html += '</h4>'
+										html += '<div class="box-tools pull-right">'
+										html += '<button type="button" class="btn btn-box-tool" data-widget="collapse">'
+										html += '<div class="i fa fa-minus"></div></button>'
+										html += '<button type="button" class="btn btn-box-tool" data-widget="remove">'
+										html += '<div class="i fa fa-times"></div></button>'
+										html += '</div>'
+										html += '</div>'
+										html += '<div class="box-body">'
+										html += '<ul class ="products-list">'
+										html += '<div class="product-list-in-box"></div>'
+										html += '<div class="product-info">'
+										html += '<ul>'
+										html += '<li>'
+										html += '<b>현재가격</b><br>' + this.goodPrice +'원 / '+ this.goodTotalCnt + this.codeName
+										html += '</li>'
+										html += '<li><b>업체명</b><br>'+ this.entpName + '</li>'
+										html += '</ul>'
+										html += '</div>'
+										html += '</ul>'
+										html += '</div>'
+										html += '</div>'	
+									$(".content").append(html)
+								});
+							}
+						});
+					}
+				});
+			}); 
