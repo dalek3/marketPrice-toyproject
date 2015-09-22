@@ -13,30 +13,32 @@ block content
 				// Main content
 				section.content
 					// Your Page Content Here
-					each item in row
-						.box
-							.box-header
-								h4.box-title
-									b 
-										a(href='/goodsView?goodId=#{item.goodId}&entpId=#{item.entpId}') #{item.goodName}
-								.box-tools.pull-right
-									button(type="button" class="btn btn-box-tool" data-widget="collapse")
-										i.fa.fa-minus
-									button(type="button" class="btn btn-box-tool" data-widget="remove")
-										i.fa.fa-times
-							.box-body
-								ul.products-list.product-list-in-box
-									.product-img
-										a(href='/goodsView?goodId=#{item.goodId}&entpId=#{item.entpId}')
-											img(src="#{item.img}" style = "border-radius : 50%;")
-									.product-info
-										ul
-											li
-												b 현재가격
-											| #{item.goodPrice} 원 / #{item.goodTotalCnt} #{item.codeName}
-											li
-												b 업체명
-											| #{item.entpName}
+					.row
+						each item in row
+							.col-xs-12.col-md-6
+								.box.box-primary
+									.box-header
+										h4.box-title
+											b 
+												a(href='/goodsView?goodId=#{item.goodId}&entpId=#{item.entpId}') #{item.goodName}
+										.box-tools.pull-right
+											button(type="button" class="btn btn-box-tool" data-widget="collapse")
+												i.fa.fa-minus
+											button(type="button" class="btn btn-box-tool" data-widget="remove")
+												i.fa.fa-times
+									.box-body
+										ul.products-list.product-list-in-box
+											.product-img
+												a(href='/goodsView?goodId=#{item.goodId}&entpId=#{item.entpId}')
+													img(src="#{item.img}" style = "border-radius : 50%;")
+											.product-info
+												ul
+													li
+														b 현재가격
+													| #{item.goodPrice} 원 / #{item.goodTotalCnt} #{item.codeName}
+													li
+														b 업체명
+													| #{item.entpName}
 		include scripts
 		script(type='text/javascript').
 			$(document).ready(function(){
@@ -50,7 +52,8 @@ block content
 							dataType: "json",
 							success: function(data){
 								$.each(data, function () {
-									var html = '<div class="box">'
+									var html = '<div class=" col-xs-12 col-md-6">'
+										html += '<div class="box box-primary">'
 										html += '<div class="box-header">'
 										html += '<h4>'
 										html += '<div class="box-title">'
@@ -78,7 +81,8 @@ block content
 										html += '</ul>'
 										html += '</div>'
 										html += '</div>'	
-									$(".content").append(html)
+										html += '</div>'	
+									$(".row").append(html)
 								});
 							}
 						});
