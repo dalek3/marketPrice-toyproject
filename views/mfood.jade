@@ -27,7 +27,8 @@ block content
 							.box-body
 								ul.products-list.product-list-in-box
 									.product-img
-										img(src="#{item.img}" style = "border-radius : 50%;")
+										a(href='/goodsView?goodId=#{item.goodId}&entpId=#{item.entpId}')
+											img(src="#{item.img}" style = "border-radius : 50%;")
 									.product-info
 										ul
 											li
