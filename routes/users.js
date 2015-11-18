@@ -6,8 +6,8 @@ var mysql = require('mysql');
 //데이터베이스와 연결합니다.
 var db_config = {
 	host:'us-cdbr-iron-east-02.cleardb.net',
-	user: 'b2f741162c7959',
-	password: '14e1591c',
+	user: '',
+	password: '',
 	database: 'heroku_acd28e380746cfd'
 };
 
